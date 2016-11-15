@@ -13,6 +13,15 @@ func (g *Game) GetDate() (year int, month int, day int) {
 	return
 }
 
+// CheckFuture returns true if the Game's release is in the future and false otherwise
+func (g *Game) CheckFuture() bool {
+	y, m, d := g.GetDate()
+	if y >= time.Now().Year() && m >= int(time.Now().Month()) && d > time.Now().Day() {
+		return true
+	}
+	return false
+}
+
 // GetGenres returns a slice of strings of the game's genres based on its genre IDs
 func (g *Game) GetGenres() (s []string) {
 	for _, val := range g.Genres {
