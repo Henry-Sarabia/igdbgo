@@ -1,6 +1,7 @@
 package igdbgo
 
 import (
+	"errors"
 	"time"
 )
 
@@ -73,9 +74,17 @@ func (g *Game) GetGenres() (s []string) {
 	return
 }
 
-// GetImageURL returns the full path to the cloudinary image of the cover
+// GetImageURL returns the full URL to the cloudinary image of the cover
 func (g *Game) GetImageURL() string {
 	return imageRoot + "cover_big/" + g.Cover.ID + ".jpg"
+}
+
+// GetVideoURL returns the full URL to the trailer hosted on Youtube
+func (g *Game) GetVideoURL() (string, error) {
+	if g.Videos[0].ID == "" {
+		return "", errors.New("Video ID not found.")
+	}
+	return videoRoot + g.Videos[0].ID, nil
 }
 
 // timeToMilli takes Go's time type and returns a millisecond value since Epoch
