@@ -81,7 +81,7 @@ func (g *Game) GetImageURL() string {
 
 // GetVideoURL returns the full URL to the trailer hosted on Youtube
 func (g *Game) GetVideoURL() (string, error) {
-	if g.Videos[0].ID == "" {
+	if len(g.Videos) == 0 {
 		return "", errors.New("Video ID not found.")
 	}
 	return videoRoot + g.Videos[0].ID, nil
